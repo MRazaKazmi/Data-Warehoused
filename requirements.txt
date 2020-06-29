@@ -1,0 +1,4 @@
+boto3===1.8.4
+apache-airflow[s3]
+apache-airflow[crypto]
+s3fs===0.4.2
