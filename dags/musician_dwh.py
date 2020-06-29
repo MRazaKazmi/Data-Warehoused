@@ -38,7 +38,7 @@ export_events_to_s3 = ExportEventsToS3(
     aws_conn_id = 's3_conn', # connection to s3, created in the airflow UI.
     region = 'us-west-2',
     bucket_key = 'ticketmaster-events',
-    api_key = 'N2s6VWhUUmuzxFsNwBHWGDFb5F7qyWVf'
+    api_key = ''
     )
 
 export_songs_to_s3 = ExportSongsToS3(
@@ -48,7 +48,7 @@ export_songs_to_s3 = ExportSongsToS3(
     aws_conn_id = 's3_conn', # connection to s3, created in the airflow UI.
     region = 'us-west-2',
     bucket_key = 'lastfm_songs',
-    api_key  = '9d9df06eddd735d3d3ad36c5d55b0d09'
+    api_key  = ''
     )
 
 delete_staging_tables_if_exists = CreateOrDeleteOperator(
@@ -76,7 +76,6 @@ stage_events_from_s3_to_redshift = LoadS3ToRedshiftOperator(
         s3_key='events',
         dag=dag,
         region="us-west-2"
-
 )
 
 stage_songs_from_s3_to_redshift = LoadS3ToRedshiftOperator(
