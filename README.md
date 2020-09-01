@@ -1,6 +1,6 @@
 # Building an analytical data view of musician events and songs to support data science efforts.
 
-The goal of this data engineering project is to build a data pipeline using Apache Airflow which collects data from two data sources via API: events data from the Ticketmaster API and songs data from the Last.fm API. The extracted data is stored into AWS S3, after which it is staged in Redshift and loaded into a star schema data warehouse model, which is optimized for analytical queries. Although out of scope for this project, the analytical data view created maybe used for further descriptive or predictive analytics. 
+The goal of this data engineering project is to build a data pipeline using Apache Airflow which collects data from two data sources via API: events data from the Ticketmaster API and songs data from the Last.fm API. The extracted data is stored into AWS S3, after which it is staged in Redshift and loaded into a star schema data warehouse model, which is optimized for analytical queries. Although out of scope for this project, the analytical data view created maybe used for descriptive or predictive analytics. 
 
 ### Data Pipeline: 
 
