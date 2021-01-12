@@ -43,7 +43,7 @@ The data model contains one fact table which contains information about artists 
 
 
 
-**Step 4: Data Pipeline**
+**Step 3: Data Pipeline**
 
 The data pipeline is visualized below:
 
@@ -62,7 +62,7 @@ Airflow is used as the pipeline orchestrator as it is relatively straightforward
 
 Redshift is used as the cloud data warehouse because it is highly scalable. With Redshift as the technology of choice for the cloud warehouse, S3 is used as the data’s cloud storage. Both the cloud services are provided by AWS and Redshift has built in support for extracting data from S3. 
 
-
+Star-Schema Data Model is used because the dataset is built for analytics and read-heavy analytics workloads are optimized with the Star-Schema Data Model.
 
 
 
@@ -85,6 +85,6 @@ docker-compose -f docker-compose-LocalExecutor.yml up -d
 
 ### Future Cases:
 
-1. If the data from the sources increase by 100x it would not have an impact on the data pipeline as it ingests data from APIs on a schedule.
-2. If the pipelines were run daily it would have no significant impact on the data pipeline
-3. If the data warehouse was accessed by 100+ people it would have no major impact on the data pipeline because Redshift by design can handle a large number of reads. 
+1. If the data from the sources increase by 100x it would not have an impact on the data pipeline as Redshift is capable of scaling to incorporate massive datasets for read-heavy workloads. If however we had write-heavy workloads we would use a NoSQL database for scaling to incorporate massive datasets. For a read-heavy workload in Redshift, data may be partitioned by date. 
+2. If the pipelines were run daily it would have no significant impact on the data pipeline because it is already scheduled to run daily; the only change which needs to be made is to specify 7am to the scheduler. 
+3. If the data warehouse was accessed by 100+ people it would have no major impact on the data pipeline because Redshift by design can handle it due to its auto-scaling capability to increase its clusters and meet concurrency needs. 
