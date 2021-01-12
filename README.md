@@ -1,8 +1,33 @@
-# Building an Analytical Data View of Music Data.
+# Building an Analytical Data View of Music Data for Analytics.
 
-The goal of this data engineering project is to build a data pipeline using Apache Airflow which collects data from two data sources via API: events data from the Ticketmaster API and songs data from the Last.fm API. The extracted data is stored into AWS S3, after which it is staged in Redshift and loaded into a star schema data warehouse model, which is optimized for analytical queries. Although out of scope for this project, the analytical data view created maybe used for analytics. 
+Step 1: Scope
 
-### Data pipeline: 
+The goal of this data engineering project is to build a data pipeline using Apache Airflow which collects data from two data sources via API: events data from the Ticketmaster API and songs data from the Last.fm API. The extracted data is stored into AWS S3, after which it is staged in Redshift and loaded into a star schema data warehouse model, which is optimized for analytical queries.
+
+Step 2: Exploration
+
+The data extracted from the API is explored and assessed in a notebook environment before the pipleline is built. 
+
+Step 3: Data Model
+
+The data is modeled as in the Entity-Relationship Diagram shown below:
+
+![alt text](https://github.com/MRazaKazmi/airflow-datapipeline-project/blob/master/images/data_model.png)
+
+The data model contains one fact table which contains information about artists such as artist name and listeners. Surrounding this fact table are two dimension tables - one containg information about songs such as listners and another containing information about concerts such as date and location. Some of the queries which can be run on this data model include finding the most popular song of an artist or the most popular concert location. 
+
+Data Dictionary 
+
+**songs_dwh**
+
+| Column  | Type |
+| ------- | ------------- |
+| song    | varchar  |
+| song playcount  | Content Cell  |
+
+
+
+Step 4: Data Pipeline
 
 The data pipeline is visualized below:
 
@@ -13,13 +38,9 @@ The data pipeline is visualized below:
 3.	It is then transformed into two dimensional tables and one fact table
 4.	Finally, data quality is checked by ensuring that the tables do not contain null values. 
 
-### Data model:
 
-The data is modeled as in the Entity-Relationship Diagram shown below:
 
-![alt text](https://github.com/MRazaKazmi/airflow-datapipeline-project/blob/master/images/data_model.png)
-
-### Tech stack leveraged:
+### Technologies Leveraged:
 
 Airflow is used as the pipeline orchestrator as it is relatively straightforward to build data pipeline using it. One can easily breakdown the pipeline into tasks which are related to each other with dependencies. This also allows parallelization of task execution as independent tasks can be run at the same time. The Airflow UI is very user friendly and one can easily inspect the pipeline using the various views provided such as the graph and tree view to diagnose any errors. 
 
@@ -31,7 +52,7 @@ Redshift is used as the cloud data warehouse because it is highly scalable. With
 
 
 
-### Instructions for running the pipeline:
+### Instructions for Running the Pipeline:
 
 1.	Create API KEYS for the two data sources and keep them secret
 2.	Create Redshift cluster, by running the create_cluster.py script in the aws-redshift folder, ensuring that the cluster is in the same region as the S3 bucket
@@ -46,7 +67,7 @@ docker-compose -f docker-compose-LocalExecutor.yml up -d
 •	redshift: connection type “Postgres”, the host is the endpoint, schema is the database name followed by the database user and password generated when creating the cluster, and finally add the port number which would be 5439.
 6.	Delete Redshift cluster running the delete_cluster.py script in the same folder as the create cluster script. 
 
-### Future cases:
+### Future Cases:
 
 1. If the data from the sources increase by 100x it would not have an impact on the data pipeline as it ingests data from APIs on a schedule.
 2. If the pipelines were run daily it would have no significant impact on the data pipeline
