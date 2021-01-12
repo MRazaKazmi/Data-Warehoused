@@ -1,8 +1,8 @@
-# Building an analytical data view of musician events and songs to support data science efforts.
+# Building an Analytical Data View of Music Data.
 
 The goal of this data engineering project is to build a data pipeline using Apache Airflow which collects data from two data sources via API: events data from the Ticketmaster API and songs data from the Last.fm API. The extracted data is stored into AWS S3, after which it is staged in Redshift and loaded into a star schema data warehouse model, which is optimized for analytical queries. Although out of scope for this project, the analytical data view created maybe used for analytics. 
 
-### Data Pipeline: 
+### Data pipeline: 
 
 The data pipeline is visualized below:
 
@@ -13,7 +13,7 @@ The data pipeline is visualized below:
 3.	It is then transformed into two dimensional tables and one fact table
 4.	Finally, data quality is checked by ensuring that the tables do not contain null values. 
 
-### Data Model:
+### Data model:
 
 The data is modeled as in the Entity-Relationship Diagram shown below:
 
@@ -46,3 +46,8 @@ docker-compose -f docker-compose-LocalExecutor.yml up -d
 •	redshift: connection type “Postgres”, the host is the endpoint, schema is the database name followed by the database user and password generated when creating the cluster, and finally add the port number which would be 5439.
 6.	Delete Redshift cluster running the delete_cluster.py script in the same folder as the create cluster script. 
 
+### Future cases:
+
+1. If the data from the sources increase by 100x it would not have an impact on the data pipeline as it ingests data from APIs on a schedule.
+2. If the pipelines were run daily it would have no significant impact on the data pipeline
+3. If the data warehouse was accessed by 100+ people it would have no major impact on the data pipeline because Redshift by design can handle a large number of reads. 
