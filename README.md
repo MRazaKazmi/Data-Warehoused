@@ -1,14 +1,10 @@
 # Building an Analytical Data View of Music Data for Analytics.
 
-Step 1: Scope
+**Step 1: Scope and Exploration**
 
-The goal of this data engineering project is to build a data pipeline using Apache Airflow which collects data from two data sources via API: events data from the Ticketmaster API and songs data from the Last.fm API. The extracted data is stored into AWS S3, after which it is staged in Redshift and loaded into a star schema data warehouse model, which is optimized for analytical queries.
+The goal of this data engineering project is to build a data pipeline using Apache Airflow which collects data from two data sources via API: events data from the Ticketmaster API and songs data from the Last.fm API. The extracted data is stored into AWS S3, after which it is staged in Redshift and loaded into a star schema data warehouse model, which is optimized for analytical queries. The data extracted from the API is explored and assessed in a notebook environment before the pipleline is built. 
 
-Step 2: Exploration
-
-The data extracted from the API is explored and assessed in a notebook environment before the pipleline is built. 
-
-Step 3: Data Model
+**Step 2: Data Model**
 
 The data is modeled as in the Entity-Relationship Diagram shown below:
 
@@ -16,18 +12,38 @@ The data is modeled as in the Entity-Relationship Diagram shown below:
 
 The data model contains one fact table which contains information about artists such as artist name and listeners. Surrounding this fact table are two dimension tables - one containg information about songs such as listners and another containing information about concerts such as date and location. Some of the queries which can be run on this data model include finding the most popular song of an artist or the most popular concert location. 
 
-Data Dictionary 
+**Data Dictionary**
 
 **songs_dwh**
 
-| Column  | Type |
-| ------- | ------------- |
-| song    | varchar  |
-| song playcount  | Content Cell  |
+| Column  | Type |Description |
+| ------- | ------------- |------------- |
+| song    | varchar  | the name of the song |
+| song_playcount  | integer  | the number of times the song has been played |
+| song_listeners  | integer  | the number of listeners of the song |
+| artist  | varchar  | the artist associated with the song |
+
+
+**artists_dwh**
+
+| Column  | Type |Description |
+| ------- | ------------- |------------- |
+| artist    | varchar  | the name of the artist |
+| artist_listeners  | integer  | the number of listeners of the artist |
+
+
+**concderts_dwh**
+
+| Column  | Type |Description |
+| ------- | ------------- |------------- |
+| name    | varchar  | the name of the concert |
+| location  | varchar  | the concert's location |
+| start_date  | date  | the concert's date |
+| artist    | varchar  | the name of the artist performing at the concert|
 
 
 
-Step 4: Data Pipeline
+**Step 4: Data Pipeline**
 
 The data pipeline is visualized below:
 
