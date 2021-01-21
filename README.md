@@ -1,4 +1,4 @@
-# Building an Analytical Data View of Music Data for Analytics.
+# Building an Analytical Data View of Music Data.
 
 **Step 1: Scope and Exploration**
 
