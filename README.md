@@ -85,6 +85,6 @@ docker-compose -f docker-compose-LocalExecutor.yml up -d
 
 ### Future Cases:
 
-1. If the data from the sources increase by 100x it would not have an impact on the data pipeline as Redshift is capable of scaling to incorporate massive datasets for read-heavy workloads. If however we had write-heavy workloads we would use a NoSQL database for scaling to incorporate massive datasets. For a read-heavy workload in Redshift, data may be partitioned by date. 
+1. If  data from the sources increases by 100x it would not have an impact on the data pipeline as Redshift is capable of scaling to incorporate massive datasets for read-heavy workloads. If however we had write-heavy workloads we would use a NoSQL database for scaling to incorporate massive datasets. For a read-heavy workload in Redshift, data may be partitioned by date. 
 2. If the pipelines were run daily it would have no significant impact on the data pipeline because it is already scheduled to run daily; the only change which needs to be made is to specify 7am to the scheduler. 
 3. If the data warehouse was accessed by 100+ people it would have no major impact on the data pipeline because Redshift by design can handle it due to its auto-scaling capability to increase its clusters and meet concurrency needs. 
